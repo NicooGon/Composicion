@@ -22,8 +22,9 @@ namespace CompAndDel
 
             IPicture result = pipe1.Send(picture);
             provider.SavePicture(result,@"beer2.jpg");
+            IPicture picture2 = provider.GetPicture(@"beer2.jpg");
             
-            IPicture result2 = pipe2.Send(picture);
+            IPicture result2 = pipe2.Send(picture2);
             provider.SavePicture(result2,@"beer3.jpg");
             
         }
