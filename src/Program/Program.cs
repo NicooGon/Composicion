@@ -1,6 +1,7 @@
 using System;
 using CompAndDel.Pipes;
 using CompAndDel.Filters;
+using System.Runtime.InteropServices;
 
 namespace CompAndDel
 {
@@ -9,7 +10,7 @@ namespace CompAndDel
         static void Main(string[] args)
         {
             PictureProvider provider = new PictureProvider();
-            IPicture picture = provider.GetPicture(@"src\Program\beer.jpg");
+            IPicture picture = provider.GetPicture(@"beer.jpg");
             FilterNegative negative = new FilterNegative();
             FilterGreyscale greyscale = new FilterGreyscale();
             PipeNull pipeLast = new PipeNull();
@@ -19,8 +20,12 @@ namespace CompAndDel
             pipe1.Send(picture);
             pipe2.Send(picture);
 
-            PictureProvider prov = new PictureProvider();
-            IPicture pic = prov.SavePicture(picture, @"C:\Users\gmour\Documents\pic.png"); 
+            IPicture result = pipe1.Send(picture);
+            provider.SavePicture(result,@"beer2.jpg");
+            
+            IPicture result2 = pipe2.Send(picture);
+            provider.SavePicture(result2,@"beer3.jpg");
+            
         }
     }
 }
